@@ -2,20 +2,34 @@ import { useEffect } from "react";
 import { Frown } from "lucide-react";
 
 import { useMatchStore } from "../store/useMatchStore.js";
+import { useAuthStore } from "../store/useAuthStore.js";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import SwipeArea from "../components/SwipeArea";
 import SwipeFeedback from "../components/SwipeFeedback";
 
 const HomePage = () => {
-  const { isLoadingUserProfiles, userProfiles, getUserProfiles } =
-    useMatchStore();
+  const {
+    isLoadingUserProfiles,
+    userProfiles,
+    getUserProfiles,
+    subscribeToNewMatches,
+    unsubscribeToNewMatches,
+  } = useMatchStore();
+
+  const { authUser } = useAuthStore();
 
   useEffect(() => {
     getUserProfiles();
   }, [getUserProfiles]);
 
-  console.log(userProfiles);
+  useEffect(() => {
+    authUser && subscribeToNewMatches();
+
+    return () => {
+      unsubscribeToNewMatches();
+    };
+  }, [subscribeToNewMatches, unsubscribeToNewMatches, authUser]);
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen bg-gradient-to-br from-pink-100 to-purple-100 overflow-hidden">
