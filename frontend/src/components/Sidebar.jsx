@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Heart, Loader, MessageCircle, X } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useMatchStore } from "../store/useMatchStore.js";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,8 +10,11 @@ const Sidebar = () => {
     setIsOpen(!isOpen);
   };
 
-  const loading = false;
-  const matches = [{ _id: "1", name: "John Doe" }];
+  const { isLoadingMyMatches, matches, getMyMatches } = useMatchStore();
+
+  useEffect(() => {
+    getMyMatches();
+  }, [getMyMatches]);
 
   return (
     <>
@@ -35,7 +39,7 @@ const Sidebar = () => {
           </div>
 
           <div className="flex-grow overflow-y-auto p-4 z-10 relative">
-            {loading ? (
+            {isLoadingMyMatches ? (
               <LoadindState />
             ) : matches.length === 0 ? (
               <NoMatchesFound />
