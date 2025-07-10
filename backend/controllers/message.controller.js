@@ -10,7 +10,6 @@ export const sendMessage = async (req, res) => {
             content
         })
 
-        // TODO: send the message in real time => socket.io
         const io = getIO();
         const connectedUsers = getConnectedUsers();
         const receiverSocketId = connectedUsers.get(receiverId);
