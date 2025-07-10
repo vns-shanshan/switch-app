@@ -1,1 +1,1 @@
-[Switch App]([https://example.com](https://switch-app-y7m3.onrender.com/)
+[Switch App](https://switch-app-y7m3.onrender.com/)
