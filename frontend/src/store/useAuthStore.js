@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { toast } from 'react-hot-toast'
+import toast from 'react-hot-toast'
 
 import { axiosInstance } from '../lib/axios.js'
 import { disconnectSocket, initializeSocket } from '../socket/socket.client.js';
@@ -69,5 +69,9 @@ export const useAuthStore = create((set) => ({
             set({ checkingAuth: false });
         }
     },
+
+    setAuthUser: (user) => {
+        set({ authUser: user });
+    }
 }))
 
